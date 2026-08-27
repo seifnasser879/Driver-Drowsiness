@@ -13,20 +13,12 @@ from config import (
 )
 
 
-# ============================================================
-# PAGE
-# ============================================================
-
 st.set_page_config(
     page_title="Driver Drowsiness Detection",
     page_icon="🚗",
     layout="wide"
 )
 
-
-# ============================================================
-# LOAD MODEL
-# ============================================================
 
 @st.cache_resource
 def get_detector():
@@ -36,10 +28,6 @@ def get_detector():
 
 detector = get_detector()
 
-
-# ============================================================
-# SIDEBAR
-# ============================================================
 
 st.sidebar.title("⚙️ Settings")
 
@@ -65,22 +53,16 @@ camera_index = st.sidebar.selectbox(
 )
 
 
-# ============================================================
-# TITLE
-# ============================================================
 
 st.title(
     "🚗 Driver Drowsiness Detection"
 )
 
 st.write(
-    "YOLO-based driver drowsiness detection system."
+    "YOLO-based driver drowsiness detection system. "
+    "Upload an image or video, or start your webcam to detect drowsiness in real time."
 )
 
-
-# ============================================================
-# TABS
-# ============================================================
 
 image_tab, video_tab, webcam_tab = st.tabs(
     [
@@ -90,10 +72,6 @@ image_tab, video_tab, webcam_tab = st.tabs(
     ]
 )
 
-
-# ============================================================
-# IMAGE
-# ============================================================
 
 with image_tab:
 
@@ -144,9 +122,6 @@ with image_tab:
             )
 
 
-# ============================================================
-# VIDEO
-# ============================================================
 
 with video_tab:
 
@@ -232,9 +207,6 @@ with video_tab:
             cap.release()
 
 
-# ============================================================
-# WEBCAM
-# ============================================================
 
 with webcam_tab:
 
@@ -289,20 +261,20 @@ with webcam_tab:
                     break
 
 
-                # YOLO
+                
                 frame = detector.detect_and_draw(
                     frame,
                     confidence
                 )
 
 
-                # BGR -> RGB
+                
                 frame = bgr_to_rgb(
                     frame
                 )
 
 
-                # Display
+                
                 frame_placeholder.image(
                     frame,
                     channels="RGB",
@@ -313,9 +285,7 @@ with webcam_tab:
             cap.release()
 
 
-# ============================================================
-# FOOTER
-# ============================================================
+
 
 st.divider()
 
